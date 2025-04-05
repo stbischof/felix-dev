@@ -18,7 +18,28 @@
  */
 package org.apache.felix.framework;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.security.AccessControlContext;
+import java.security.ProtectionDomain;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.StringTokenizer;
+
 import org.apache.felix.framework.cache.BundleArchive;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.apache.felix.framework.util.SecurityManagerEx;
 import org.apache.felix.framework.util.ShrinkableCollection;
 import org.apache.felix.framework.util.StringMap;
@@ -40,25 +61,6 @@ import org.osgi.framework.wiring.BundleRevision;
 import org.osgi.framework.wiring.BundleRevisions;
 import org.osgi.framework.wiring.BundleWire;
 import org.osgi.framework.wiring.BundleWiring;
-
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.security.AccessControlContext;
-import java.security.ProtectionDomain;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.StringTokenizer;
 
 class BundleImpl implements Bundle, BundleRevisions
 {
@@ -244,7 +246,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public BundleContext getBundleContext()
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -281,7 +283,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public URL getEntry(String name)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -302,7 +304,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public Enumeration getEntryPaths(String path)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -323,7 +325,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public Enumeration findEntries(String path, String filePattern, boolean recurse)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -351,7 +353,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public Dictionary getHeaders(String locale)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -621,7 +623,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public String getLocation()
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -656,7 +658,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public URL getResource(String name)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -677,7 +679,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public Enumeration getResources(String name) throws IOException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -707,7 +709,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public ServiceReference[] getRegisteredServices()
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -751,7 +753,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public ServiceReference[] getServicesInUse()
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -968,7 +970,7 @@ class BundleImpl implements Bundle, BundleRevisions
             throw new ClassNotFoundException("Extension bundles cannot load classes.");
         }
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -995,7 +997,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public void start(int options) throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -1015,7 +1017,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public void update(InputStream is) throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -1035,7 +1037,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public void stop(int options) throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -1049,7 +1051,7 @@ class BundleImpl implements Bundle, BundleRevisions
     @Override
     public void uninstall() throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -1085,7 +1087,7 @@ class BundleImpl implements Bundle, BundleRevisions
 
     <A> void checkAdapt(Class<A> type)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if ((sm != null) && (getFramework().getSecurityProvider() != null))
         {
             Class[] classes = m_smEx.getClassContext();

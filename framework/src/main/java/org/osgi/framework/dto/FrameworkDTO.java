@@ -18,6 +18,7 @@ package org.osgi.framework.dto;
 
 import java.util.List;
 import java.util.Map;
+
 import org.osgi.dto.DTO;
 import org.osgi.framework.BundleContext;
 

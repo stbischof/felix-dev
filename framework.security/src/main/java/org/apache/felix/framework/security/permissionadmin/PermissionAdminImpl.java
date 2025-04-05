@@ -182,7 +182,7 @@ public final class PermissionAdminImpl implements PermissionAdmin
 
     public void setDefaultPermissions(PermissionInfo[] permissions)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             ((SecurityManager) sm).checkPermission(Permissions.ALL_PERMISSION);
@@ -220,7 +220,7 @@ public final class PermissionAdminImpl implements PermissionAdmin
 
     public void setPermissions(String location, PermissionInfo[] permissions)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             ((SecurityManager) sm).checkPermission(Permissions.ALL_PERMISSION);

@@ -21,6 +21,8 @@ package org.apache.felix.framework;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.osgi.framework.AdminPermission;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -105,7 +107,7 @@ class FrameworkStartLevelImpl implements FrameworkStartLevel, Runnable
 
     public void setStartLevel(int startlevel, FrameworkListener... listeners)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -173,7 +175,7 @@ class FrameworkStartLevelImpl implements FrameworkStartLevel, Runnable
 
     public void setInitialBundleStartLevel(int startlevel)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -209,7 +211,7 @@ class FrameworkStartLevelImpl implements FrameworkStartLevel, Runnable
 
         public void setStartLevel(int startlevel)
         {
-            Object sm = System.getSecurityManager();
+            Object sm = SecuritySystem.getSecurityManager();
 
             if (sm != null)
             {

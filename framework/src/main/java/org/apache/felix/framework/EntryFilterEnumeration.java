@@ -20,7 +20,13 @@ package org.apache.felix.framework;
 
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Set;
+
 import org.apache.felix.framework.capabilityset.SimpleFilter;
 import org.apache.felix.framework.util.Util;
 import org.osgi.framework.wiring.BundleRevision;

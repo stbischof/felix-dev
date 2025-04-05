@@ -18,12 +18,6 @@
  */
 package org.apache.felix.framework.cache;
 
-import org.apache.felix.framework.Logger;
-import org.apache.felix.framework.util.StringMap;
-import org.apache.felix.framework.util.Util;
-import org.apache.felix.framework.util.WeakZipFileFactory;
-import org.apache.felix.framework.util.WeakZipFileFactory.WeakZipFile;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,6 +26,12 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Map;
 import java.util.zip.ZipEntry;
+
+import org.apache.felix.framework.Logger;
+import org.apache.felix.framework.util.StringMap;
+import org.apache.felix.framework.util.Util;
+import org.apache.felix.framework.util.WeakZipFileFactory;
+import org.apache.felix.framework.util.WeakZipFileFactory.WeakZipFile;
 
 /**
  * <p>

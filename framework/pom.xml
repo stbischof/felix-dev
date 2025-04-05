@@ -31,6 +31,7 @@
   <properties>
     <dollar>$</dollar>
     <felix.java.version>8</felix.java.version>
+    <multiRelease>true</multiRelease>
   </properties>
   <scm>
     <connection>scm:git:https://github.com/apache/felix-dev.git</connection>
@@ -41,6 +42,37 @@
 
   <build>
     <plugins>
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-compiler-plugin</artifactId>
+            <executions>
+                <execution>
+                    <id>compile-java-8</id>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                    <configuration>
+                        <source>1.8</source>
+                        <target>1.8</target>
+                    </configuration>
+                </execution>
+                <execution>
+                    <id>compile-java-24</id>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>compile</goal>
+                    </goals>
+                    <configuration> 
+                        <release>24</release> 
+                        <compileSourceRoots> 
+                            <compileSourceRoot>${project.basedir}/src/main/java24</compileSourceRoot> 
+                        </compileSourceRoots> 
+                        <multiReleaseOutput>true</multiReleaseOutput>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+
       <plugin>
         <groupId>org.moditect</groupId>
         <artifactId>moditect-maven-plugin</artifactId>
@@ -103,6 +135,7 @@
         <extensions>true</extensions>
         <configuration>
           <instructions>
+            <Multi-Release>true</Multi-Release>
             <Bundle-SymbolicName>org.apache.felix.framework</Bundle-SymbolicName>
             <Bundle-Name>Apache Felix Framework</Bundle-Name>
             <Bundle-Description>OSGi R8 framework implementation.</Bundle-Description>

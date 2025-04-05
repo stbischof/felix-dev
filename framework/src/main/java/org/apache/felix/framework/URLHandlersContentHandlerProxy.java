@@ -18,7 +18,7 @@
  */
 package org.apache.felix.framework;
 
-import org.apache.felix.framework.util.SecureAction;
+import static org.apache.felix.framework.util.Util.putIfAbsentAndReturn;
 
 import java.io.IOException;
 import java.net.ContentHandler;
@@ -27,7 +27,7 @@ import java.net.URLConnection;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 
-import static org.apache.felix.framework.util.Util.putIfAbsentAndReturn;
+import org.apache.felix.framework.util.SecureAction;
 
 /**
  * <p>

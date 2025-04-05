@@ -247,7 +247,7 @@ public final class ConditionalPermissionAdminImpl implements
     public ConditionalPermissionInfo addConditionalPermissionInfo(
         ConditionInfo[] conditions, PermissionInfo[] permissions)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             ((SecurityManager) sm).checkPermission(Permissions.ALL_PERMISSION);
@@ -560,7 +560,7 @@ public final class ConditionalPermissionAdminImpl implements
     public ConditionalPermissionInfo setConditionalPermissionInfo(String name,
         ConditionInfo[] conditions, PermissionInfo[] permissions)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             ((SecurityManager) sm).checkPermission(Permissions.ALL_PERMISSION);
@@ -878,7 +878,7 @@ public final class ConditionalPermissionAdminImpl implements
 
             public boolean commit()
             {
-                Object sm = System.getSecurityManager();
+                Object sm = SecuritySystem.getSecurityManager();
                 if (sm != null)
                 {
                     ((SecurityManager) sm).checkPermission(Permissions.ALL_PERMISSION);

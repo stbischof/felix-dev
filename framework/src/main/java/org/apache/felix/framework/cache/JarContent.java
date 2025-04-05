@@ -18,13 +18,6 @@
  */
 package org.apache.felix.framework.cache;
 
-import org.apache.felix.framework.Logger;
-import org.apache.felix.framework.util.FelixConstants;
-import org.apache.felix.framework.util.Util;
-import org.apache.felix.framework.util.WeakZipFileFactory;
-import org.apache.felix.framework.util.WeakZipFileFactory.WeakZipFile;
-import org.osgi.framework.Constants;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -35,6 +28,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 import java.util.zip.ZipEntry;
+
+import org.apache.felix.framework.Logger;
+import org.apache.felix.framework.util.FelixConstants;
+import org.apache.felix.framework.util.Util;
+import org.apache.felix.framework.util.WeakZipFileFactory;
+import org.apache.felix.framework.util.WeakZipFileFactory.WeakZipFile;
+import org.osgi.framework.Constants;
 
 public class JarContent implements Content
 {

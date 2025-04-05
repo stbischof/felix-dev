@@ -18,10 +18,35 @@
  */
 package org.apache.felix.framework;
 
+import java.io.IOException;
+import java.lang.reflect.Constructor;
+import java.net.URL;
+import java.security.AccessController;
+import java.security.PrivilegedAction;
+import java.security.PrivilegedActionException;
+import java.security.PrivilegedExceptionAction;
+import java.security.SecureClassLoader;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.concurrent.ConcurrentHashMap;
+
 import org.apache.felix.framework.cache.ConnectContentContent;
 import org.apache.felix.framework.cache.Content;
 import org.apache.felix.framework.capabilityset.SimpleFilter;
 import org.apache.felix.framework.resolver.ResourceNotFoundException;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.apache.felix.framework.util.CompoundEnumeration;
 import org.apache.felix.framework.util.FelixConstants;
 import org.apache.felix.framework.util.SecurityManagerEx;
@@ -52,29 +77,6 @@ import org.osgi.resource.Capability;
 import org.osgi.resource.Requirement;
 import org.osgi.resource.Wire;
 import org.osgi.service.resolver.ResolutionException;
-
-import java.io.IOException;
-import java.lang.reflect.Constructor;
-import java.net.URL;
-import java.security.AccessController;
-import java.security.PrivilegedAction;
-import java.security.PrivilegedActionException;
-import java.security.PrivilegedExceptionAction;
-import java.security.SecureClassLoader;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.concurrent.ConcurrentHashMap;
 
 public class BundleWiringImpl implements BundleWiring
 {
@@ -387,7 +389,7 @@ public class BundleWiringImpl implements BundleWiring
             }
         }
 
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             for (Iterator<BundleCapability> iter = capList.iterator(); iter.hasNext();)
             {
@@ -1722,7 +1724,7 @@ public class BundleWiringImpl implements BundleWiring
             final Class[] classes = m_sm.getClassContext();
             try
             {
-                if (System.getSecurityManager() != null)
+                if (SecuritySystem.getSecurityManager() != null)
                 {
                     return AccessController
                         .doPrivileged(new PrivilegedExceptionAction()

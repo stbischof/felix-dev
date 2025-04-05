@@ -43,8 +43,11 @@ import java.util.Enumeration;
 import java.util.List;
 import java.util.jar.JarEntry;
 import java.util.jar.JarOutputStream;
+
 import org.apache.felix.framework.cache.Content;
 import org.apache.felix.framework.cache.JarContent;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.apache.felix.framework.util.FelixConstants;
 import org.osgi.framework.PackagePermission;
 
@@ -321,7 +324,7 @@ public class BundleProtectionDomain extends ProtectionDomain
         {
             String property;
 
-            if (System.getSecurityManager() != null)
+            if (SecuritySystem.getSecurityManager() != null)
             {
                 property = (String) AccessController.doPrivileged(new PrivilegedAction<String>(){
                     @Override

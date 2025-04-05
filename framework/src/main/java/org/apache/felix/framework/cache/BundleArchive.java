@@ -18,17 +18,26 @@
  */
 package org.apache.felix.framework.cache;
 
-import java.io.*;
-
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+
 import org.apache.felix.framework.Logger;
 import org.apache.felix.framework.util.WeakZipFileFactory;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Constants;
-import org.osgi.framework.connect.ModuleConnector;
 import org.osgi.framework.connect.ConnectModule;
+import org.osgi.framework.connect.ModuleConnector;
 
 /**
  * <p>

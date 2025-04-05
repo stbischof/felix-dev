@@ -41,6 +41,8 @@ import org.apache.felix.framework.capabilityset.CapabilitySet;
 import org.apache.felix.framework.capabilityset.SimpleFilter;
 import org.apache.felix.framework.resolver.CandidateComparator;
 import org.apache.felix.framework.resolver.ResolveException;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.apache.felix.framework.util.FelixConstants;
 import org.apache.felix.framework.util.ShrinkableCollection;
 import org.apache.felix.framework.util.Util;
@@ -353,7 +355,7 @@ class StatefulResolver
 
     private boolean filteredBySecurity(BundleRequirement req, BundleCapability cap)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             BundleRevisionImpl reqRevision = (BundleRevisionImpl) req.getRevision();
 

@@ -21,9 +21,14 @@ package org.apache.felix.framework;
 import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Method;
-import java.net.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
 import java.security.Permission;
 
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
+import org.apache.felix.framework.sm.SecurityManager;
 import org.apache.felix.framework.util.SecureAction;
 import org.apache.felix.framework.util.Util;
 import org.osgi.framework.AdminPermission;
@@ -128,7 +133,7 @@ class URLHandlersBundleStreamHandler extends URLStreamHandler
 
     private boolean checkPermission(URL u)
     {
-        SecurityManager sm = System.getSecurityManager();
+        SecurityManager sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             Object framework = m_framework;

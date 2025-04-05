@@ -18,12 +18,6 @@
  */
 package org.apache.felix.framework.cache;
 
-import org.apache.felix.framework.Logger;
-import org.apache.felix.framework.util.SecureAction;
-import org.apache.felix.framework.util.WeakZipFileFactory;
-import org.osgi.framework.Constants;
-import org.osgi.framework.connect.ModuleConnector;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,6 +28,12 @@ import java.nio.channels.FileLock;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.felix.framework.Logger;
+import org.apache.felix.framework.util.SecureAction;
+import org.apache.felix.framework.util.WeakZipFileFactory;
+import org.osgi.framework.Constants;
+import org.osgi.framework.connect.ModuleConnector;
 
 /**
  * <p>

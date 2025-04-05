@@ -352,7 +352,7 @@ public final class ConditionalPermissionInfoImpl implements
 
     public void delete()
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             ((SecurityManager) sm).checkPermission(Permissions.ALL_PERMISSION);

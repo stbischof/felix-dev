@@ -20,6 +20,7 @@ import java.net.InetAddress;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLStreamHandler;
+
 import org.osgi.annotation.versioning.ConsumerType;
 
 /**

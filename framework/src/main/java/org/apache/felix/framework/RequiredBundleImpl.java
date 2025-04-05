@@ -19,6 +19,7 @@
 package org.apache.felix.framework;
 
 import java.util.Set;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.Version;
 import org.osgi.service.packageadmin.RequiredBundle;

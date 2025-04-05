@@ -18,6 +18,8 @@
  */
 package org.apache.felix.framework;
 
+import static org.apache.felix.framework.util.Util.putIfAbsentAndReturn;
+
 import java.lang.reflect.Method;
 import java.net.ContentHandler;
 import java.net.ContentHandlerFactory;
@@ -29,8 +31,6 @@ import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import static org.apache.felix.framework.util.Util.putIfAbsentAndReturn;
 
 import org.apache.felix.framework.util.FelixConstants;
 import org.apache.felix.framework.util.SecureAction;

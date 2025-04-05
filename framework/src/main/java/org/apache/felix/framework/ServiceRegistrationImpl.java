@@ -30,6 +30,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.apache.felix.framework.util.MapToDictionary;
 import org.apache.felix.framework.util.StringMap;
 import org.apache.felix.framework.util.Util;
@@ -239,7 +241,7 @@ class ServiceRegistrationImpl implements ServiceRegistration
             Object svcObj = null;
             try
             {
-                if (System.getSecurityManager() != null)
+                if (SecuritySystem.getSecurityManager() != null)
                 {
                     svcObj = AccessController.doPrivileged(
                         new ServiceFactoryPrivileged(acqBundle, null));
@@ -278,7 +280,7 @@ class ServiceRegistrationImpl implements ServiceRegistration
         {
             try
             {
-                if (System.getSecurityManager() != null)
+                if (SecuritySystem.getSecurityManager() != null)
                 {
                     AccessController.doPrivileged(
                         new ServiceFactoryPrivileged(relBundle, svcObj));

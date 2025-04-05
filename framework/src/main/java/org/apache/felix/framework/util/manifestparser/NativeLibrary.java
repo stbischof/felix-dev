@@ -21,6 +21,7 @@ package org.apache.felix.framework.util.manifestparser;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
 import org.osgi.framework.Constants;
 
 public class NativeLibrary

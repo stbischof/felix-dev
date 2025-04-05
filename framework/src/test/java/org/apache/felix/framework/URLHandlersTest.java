@@ -127,6 +127,14 @@ public class URLHandlersTest extends TestCase
 
     public void testURLHandlersWithSecurity() throws Exception
     {
+    	if(getJavaMajorVersion()>=24) {
+    		return;
+    	};
+    	doURLHandlersWithSecurity();
+    }
+
+    private void doURLHandlersWithSecurity() throws Exception
+    {
         System.setSecurityManager(new SecurityManager()
         {
             @Override
@@ -144,6 +152,10 @@ public class URLHandlersTest extends TestCase
 
     public void testURLHandlersWithClassLoaderIsolationWithSecurity() throws Exception
     {
+    	if(getJavaMajorVersion()>=24) {
+    		return;
+    	};
+    	
         System.setSecurityManager(new SecurityManager()
         {
             @Override
@@ -520,5 +532,18 @@ public class URLHandlersTest extends TestCase
         params.put(Constants.FRAMEWORK_STORAGE, cache);
 
         return new Felix(params);
+    }
+
+    public static int getJavaMajorVersion() {
+        String version = System.getProperty("java.version");
+        
+        if (version.startsWith("1.")) {
+            // z. B. 1.8.0_292 → 8
+            return Integer.parseInt(version.substring(2, 3));
+        } else {
+            // z. B. 17.0.1 → 17, oder 26-ea → 26
+            String[] parts = version.split("\\D+"); // trennt bei Nicht-Zahlen
+            return Integer.parseInt(parts[0]);
+        }
     }
 }

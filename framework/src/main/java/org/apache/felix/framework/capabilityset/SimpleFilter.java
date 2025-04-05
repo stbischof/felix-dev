@@ -18,13 +18,13 @@
  */
 package org.apache.felix.framework.capabilityset;
 
-import org.osgi.framework.VersionRange;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
+
+import org.osgi.framework.VersionRange;
 
 public class SimpleFilter
 {

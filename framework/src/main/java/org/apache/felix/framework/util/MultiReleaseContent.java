@@ -18,15 +18,19 @@
  */
 package org.apache.felix.framework.util;
 
-import org.apache.felix.framework.cache.BundleCache;
-import org.apache.felix.framework.cache.Content;
-import org.osgi.framework.Version;
-
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.*;
+import java.util.Collections;
+import java.util.Enumeration;
+import java.util.LinkedHashSet;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.felix.framework.cache.BundleCache;
+import org.apache.felix.framework.cache.Content;
+import org.osgi.framework.Version;
 
 public class MultiReleaseContent implements Content
 {

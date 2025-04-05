@@ -25,6 +25,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Dictionary;
 
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.osgi.framework.AdminPermission;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -70,7 +72,7 @@ class BundleContextImpl implements BundleContext
         // the result is the same as if the calling thread had
         // won the race condition.
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -132,7 +134,7 @@ class BundleContextImpl implements BundleContext
 
         Bundle result = null;
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -196,7 +198,7 @@ class BundleContextImpl implements BundleContext
         // while holding the event queue lock, so it will either succeed
         // or fail.
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -219,7 +221,7 @@ class BundleContextImpl implements BundleContext
         // the result is the same as if the calling thread had
         // won the race condition.
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -311,7 +313,7 @@ class BundleContextImpl implements BundleContext
         // because internally the framework acquires the bundle state
         // lock to ensure state consistency.
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -440,7 +442,7 @@ class BundleContextImpl implements BundleContext
             throw new NullPointerException("Specified service reference cannot be null.");
         }
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -508,7 +510,7 @@ class BundleContextImpl implements BundleContext
     {
     	checkValidity();
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -544,7 +546,7 @@ class BundleContextImpl implements BundleContext
             // the result is the same as if the calling thread had
             // won the race condition.
 
-            final Object sm = System.getSecurityManager();
+            final Object sm = SecuritySystem.getSecurityManager();
 
             if (sm != null)
             {

@@ -18,13 +18,13 @@
  */
 package org.apache.felix.framework.cache;
 
-import org.apache.felix.framework.Logger;
-import org.apache.felix.framework.util.StringMap;
-import org.apache.felix.framework.util.WeakZipFileFactory;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.Map;
+
+import org.apache.felix.framework.Logger;
+import org.apache.felix.framework.util.StringMap;
+import org.apache.felix.framework.util.WeakZipFileFactory;
 
 /**
  * <p>

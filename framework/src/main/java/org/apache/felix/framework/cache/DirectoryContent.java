@@ -18,23 +18,22 @@
  */
 package org.apache.felix.framework.cache;
 
-import org.apache.felix.framework.Logger;
-import org.apache.felix.framework.util.FelixConstants;
-import org.apache.felix.framework.util.Util;
-import org.apache.felix.framework.util.WeakZipFileFactory;
-import org.osgi.framework.Constants;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UncheckedIOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Properties;
+
+import org.apache.felix.framework.Logger;
+import org.apache.felix.framework.util.FelixConstants;
+import org.apache.felix.framework.util.Util;
+import org.apache.felix.framework.util.WeakZipFileFactory;
+import org.osgi.framework.Constants;
 
 public class DirectoryContent implements Content
 {

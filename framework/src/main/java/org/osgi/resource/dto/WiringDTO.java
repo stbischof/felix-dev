@@ -17,6 +17,7 @@
 package org.osgi.resource.dto;
 
 import java.util.List;
+
 import org.osgi.dto.DTO;
 import org.osgi.resource.Wiring;
 

@@ -19,6 +19,7 @@
 package org.apache.felix.framework.util;
 
 import java.util.EventListener;
+
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.Filter;

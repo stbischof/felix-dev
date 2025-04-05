@@ -18,7 +18,10 @@
  */
 package org.apache.felix.framework.util;
 
-import java.util.*;
+import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.Map;
 
 
 /**

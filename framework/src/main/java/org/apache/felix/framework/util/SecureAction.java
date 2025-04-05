@@ -58,6 +58,8 @@ import java.util.function.Consumer;
 import java.util.jar.JarFile;
 import java.util.zip.ZipFile;
 
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -124,7 +126,7 @@ public class SecureAction
 
     public SecureAction()
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -145,7 +147,7 @@ public class SecureAction
 
     public String getSystemProperty(String name, String def)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -166,7 +168,7 @@ public class SecureAction
 
     public ClassLoader getParentClassLoader(ClassLoader loader)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -187,7 +189,7 @@ public class SecureAction
 
     public ClassLoader getSystemClassLoader()
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -208,7 +210,7 @@ public class SecureAction
 
     public ClassLoader getClassLoader(Class clazz)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -229,7 +231,7 @@ public class SecureAction
 
     public Class forName(String name, ClassLoader classloader) throws ClassNotFoundException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -260,7 +262,7 @@ public class SecureAction
         int port, String path, URLStreamHandler handler)
         throws MalformedURLException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -287,7 +289,7 @@ public class SecureAction
     public URL createURL(URL context, String spec, URLStreamHandler handler)
         throws MalformedURLException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -313,7 +315,7 @@ public class SecureAction
 
     public Process exec(String command) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -334,7 +336,7 @@ public class SecureAction
 
     public String getAbsolutePath(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -355,7 +357,7 @@ public class SecureAction
 
     public boolean fileExists(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -377,7 +379,7 @@ public class SecureAction
 
     public boolean isFile(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -399,7 +401,7 @@ public class SecureAction
 
     public boolean isFileDirectory(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -421,7 +423,7 @@ public class SecureAction
 
     public boolean mkdir(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -443,7 +445,7 @@ public class SecureAction
 
     public boolean mkdirs(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -465,7 +467,7 @@ public class SecureAction
 
     public File[] listDirectory(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -486,7 +488,7 @@ public class SecureAction
 
     public boolean renameFile(File oldFile, File newFile)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -508,7 +510,7 @@ public class SecureAction
 
     public InputStream getInputStream(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -533,7 +535,7 @@ public class SecureAction
 
     public OutputStream getOutputStream(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -558,7 +560,7 @@ public class SecureAction
 
     public FileInputStream getFileInputStream(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -583,7 +585,7 @@ public class SecureAction
 
     public FileOutputStream getFileOutputStream(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -608,7 +610,7 @@ public class SecureAction
 
     public FileChannel getFileChannel(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -633,7 +635,7 @@ public class SecureAction
 
     public URI toURI(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -655,7 +657,7 @@ public class SecureAction
     public InputStream getURLConnectionInputStream(URLConnection conn)
         throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -680,7 +682,7 @@ public class SecureAction
 
     public boolean deleteFile(File target)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -703,7 +705,7 @@ public class SecureAction
     public File createTempFile(String prefix, String suffix, File dir)
         throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -729,7 +731,7 @@ public class SecureAction
     public void deleteFileOnExit(File file)
         throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -754,7 +756,7 @@ public class SecureAction
 
     public URLConnection openURLConnection(URL url) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -780,7 +782,7 @@ public class SecureAction
 
     public ZipFile openZipFile(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -805,7 +807,7 @@ public class SecureAction
 
     public JarFile openJarFile(File file) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -831,7 +833,7 @@ public class SecureAction
     public void startActivator(BundleActivator activator, BundleContext context)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -853,7 +855,7 @@ public class SecureAction
     public void stopActivator(BundleActivator activator, BundleContext context)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -874,7 +876,7 @@ public class SecureAction
 
     public Policy getPolicy()
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -895,7 +897,7 @@ public class SecureAction
 
     public void addURLToURLClassLoader(URL extension, ClassLoader loader) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.ADD_EXTENSION_URL_ACTION, extension, loader);
@@ -920,7 +922,7 @@ public class SecureAction
 
     public Constructor getConstructor(Class target, Class[] types) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.GET_CONSTRUCTOR_ACTION, target, types);
@@ -941,7 +943,7 @@ public class SecureAction
 
     public Constructor getDeclaredConstructor(Class target, Class[] types) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.GET_DECLARED_CONSTRUCTOR_ACTION, target, types);
@@ -962,7 +964,7 @@ public class SecureAction
 
     public Method getMethod(Class target, String method, Class[] types) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.GET_METHOD_ACTION, target, method, types);
@@ -983,7 +985,7 @@ public class SecureAction
 
     public Method getDeclaredMethod(Class target, String method, Class[] types) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.GET_DECLARED_METHOD_ACTION, target, method, types);
@@ -1004,7 +1006,7 @@ public class SecureAction
 
     public void setAccesssible(Executable ao)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.SET_ACCESSIBLE_ACTION, ao);
@@ -1025,7 +1027,7 @@ public class SecureAction
 
     public Object invoke(Method method, Object target, Object[] params) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_METHOD_ACTION, method, target, params);
@@ -1048,7 +1050,7 @@ public class SecureAction
 
     public Object invokeDirect(Method method, Object target, Object[] params) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_DIRECTMETHOD_ACTION, method, target, params);
@@ -1069,7 +1071,7 @@ public class SecureAction
 
     public Object invoke(Constructor constructor, Object[] params) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_CONSTRUCTOR_ACTION, constructor, params);
@@ -1091,7 +1093,7 @@ public class SecureAction
     public Object getDeclaredField(Class targetClass, String name, Object target)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.GET_FIELD_ACTION, targetClass, name, target);
@@ -1115,7 +1117,7 @@ public class SecureAction
     public Object swapStaticFieldIfNotClass(Class targetClazz,
         Class targetType, Class condition, String lockName) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.SWAP_FIELD_ACTION, targetClazz, targetType,
@@ -1261,7 +1263,7 @@ public class SecureAction
 
     public void flush(Class targetClazz, Object lock) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.FLUSH_FIELD_ACTION, targetClazz, lock);
@@ -1318,7 +1320,7 @@ public class SecureAction
         Bundle targetBundle, Collection<Bundle> collisionCandidates)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_BUNDLE_COLLISION_HOOK, ch, operationType, targetBundle, collisionCandidates);
@@ -1342,7 +1344,7 @@ public class SecureAction
         BundleContext bc, Collection<Bundle> bundles)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_BUNDLE_FIND_HOOK, fh, bc, bundles);
@@ -1366,7 +1368,7 @@ public class SecureAction
         BundleEvent event, Collection<BundleContext> contexts)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_BUNDLE_EVENT_HOOK, eh, event, contexts);
@@ -1390,7 +1392,7 @@ public class SecureAction
         org.osgi.framework.hooks.weaving.WovenClass wc)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_WEAVING_HOOK, wh, wc);
@@ -1414,7 +1416,7 @@ public class SecureAction
         ServiceEvent event, Collection<BundleContext> contexts)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_SERVICE_EVENT_HOOK, eh, event, contexts);
@@ -1439,7 +1441,7 @@ public class SecureAction
         boolean allServices, Collection<ServiceReference<?>> references)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(
@@ -1465,7 +1467,7 @@ public class SecureAction
         Collection<ListenerHook.ListenerInfo> listeners)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_SERVICE_LISTENER_HOOK_ADDED, lh, listeners);
@@ -1489,7 +1491,7 @@ public class SecureAction
         Collection<ListenerHook.ListenerInfo> listeners)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_SERVICE_LISTENER_HOOK_REMOVED, lh, listeners);
@@ -1514,7 +1516,7 @@ public class SecureAction
         Map<BundleContext, Collection<ListenerHook.ListenerInfo>> listeners)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_SERVICE_EVENT_LISTENER_HOOK, elh, event, listeners);
@@ -1538,7 +1540,7 @@ public class SecureAction
         Collection<BundleRevision> triggers)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_RESOLVER_HOOK_FACTORY, rhf, triggers);
@@ -1562,7 +1564,7 @@ public class SecureAction
         Collection<BundleRevision> candidates)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_RESOLVER_HOOK_RESOLVABLE, rh, candidates);
@@ -1587,7 +1589,7 @@ public class SecureAction
         Collection<BundleCapability> collisions)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_RESOLVER_HOOK_SINGLETON, rh, singleton, collisions);
@@ -1612,7 +1614,7 @@ public class SecureAction
         Collection<BundleCapability> candidates)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_RESOLVER_HOOK_MATCHES, rh, req, candidates);
@@ -1635,7 +1637,7 @@ public class SecureAction
         org.osgi.framework.hooks.resolver.ResolverHook rh)
         throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_RESOLVER_HOOK_END, rh);
@@ -1659,7 +1661,7 @@ public class SecureAction
             org.osgi.framework.hooks.weaving.WovenClass wc)
             throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.INVOKE_WOVEN_CLASS_LISTENER, wcl, wc);
@@ -1680,7 +1682,7 @@ public class SecureAction
 
     public <T> T run(PrivilegedAction<T> action)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             return AccessController.doPrivileged(action);
         }
@@ -1692,7 +1694,7 @@ public class SecureAction
 
     public <T> T run(PrivilegedExceptionAction<T> action) throws Exception
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -1711,7 +1713,7 @@ public class SecureAction
 
     public String getCanonicalPath(File dataFile) throws IOException
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.GET_CANONICAL_PATH, dataFile);
@@ -1733,7 +1735,7 @@ public class SecureAction
     public Object createProxy(ClassLoader classLoader, 
             Class<?>[] interfaces, InvocationHandler handler)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.CREATE_PROXY, classLoader, interfaces, handler);
@@ -1754,7 +1756,7 @@ public class SecureAction
 
     public long getLastModified(File file)
     {
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             Actions actions = (Actions) m_actions.get();
             actions.set(Actions.LAST_MODIFIED, file);

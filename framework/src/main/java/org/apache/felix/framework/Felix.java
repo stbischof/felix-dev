@@ -18,6 +18,42 @@
  */
 package org.apache.felix.framework;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLStreamHandler;
+import java.security.AccessControlException;
+import java.security.Permission;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
+import java.util.List;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.StringTokenizer;
+import java.util.TreeMap;
+import java.util.TreeSet;
+import java.util.WeakHashMap;
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.ReentrantLock;
+
 import org.apache.felix.framework.BundleWiringImpl.BundleClassLoader;
 import org.apache.felix.framework.ServiceRegistry.ServiceRegistryCallbacks;
 import org.apache.felix.framework.cache.BundleArchive;
@@ -25,6 +61,9 @@ import org.apache.felix.framework.cache.BundleCache;
 import org.apache.felix.framework.capabilityset.CapabilitySet;
 import org.apache.felix.framework.capabilityset.SimpleFilter;
 import org.apache.felix.framework.ext.SecurityProvider;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.apache.felix.framework.util.FelixConstants;
 import org.apache.felix.framework.util.ListenerInfo;
 import org.apache.felix.framework.util.MapToDictionary;
@@ -71,42 +110,6 @@ import org.osgi.framework.wiring.FrameworkWiring;
 import org.osgi.resource.Requirement;
 import org.osgi.service.packageadmin.ExportedPackage;
 import org.osgi.service.resolver.ResolutionException;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLStreamHandler;
-import java.security.AccessControlException;
-import java.security.Permission;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Dictionary;
-import java.util.Enumeration;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Properties;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.StringTokenizer;
-import java.util.TreeMap;
-import java.util.TreeSet;
-import java.util.WeakHashMap;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Felix extends BundleImpl implements Framework
 {
@@ -664,20 +667,20 @@ public class Felix extends BundleImpl implements Framework
                 String security = (String) m_configMap.get(Constants.FRAMEWORK_SECURITY);
                 if (security != null)
                 {
-                    if (System.getSecurityManager() != null)
+                    if (SecuritySystem.getSecurityManager() != null)
                     {
                         throw new SecurityException("SecurityManager already installed");
                     }
                     security = security.trim();
                     if (Constants.FRAMEWORK_SECURITY_OSGI.equalsIgnoreCase(security) || (security.length() == 0))
                     {
-                        System.setSecurityManager(m_securityManager = new SecurityManager());
+                        SecuritySystem.setSecurityManager(m_securityManager = new SecurityManager());
                     }
                     else
                     {
                         try
                         {
-                            System.setSecurityManager(m_securityManager =
+                        	SecuritySystem.setSecurityManager(m_securityManager =
                                 (SecurityManager) Class.forName(security).newInstance());
                         }
                         catch (Throwable t)
@@ -908,7 +911,7 @@ public class Felix extends BundleImpl implements Framework
                 // We have to check with the security provider (if there is one).
                 // This is to avoid having bundles in the cache that have been tampered with
                 SecurityProvider sp = getFramework().getSecurityProvider();
-                if ((sp != null) && (System.getSecurityManager() != null))
+                if ((sp != null) && (SecuritySystem.getSecurityManager() != null))
                 {
                     boolean locked = acquireGlobalLock();
                     if (!locked)
@@ -1076,7 +1079,7 @@ public class Felix extends BundleImpl implements Framework
     {
         Object certificates = null;
         SecurityProvider sp = getFramework().getSecurityProvider();
-        if ((sp != null) && (System.getSecurityManager() != null))
+        if ((sp != null) && (SecuritySystem.getSecurityManager() != null))
         {
             BundleImpl bundleImpl = revisionImpl.getBundle();
             sp.checkBundle(bundleImpl);
@@ -1159,7 +1162,7 @@ public class Felix extends BundleImpl implements Framework
     @Override
     public void stop() throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -1253,7 +1256,7 @@ public class Felix extends BundleImpl implements Framework
     @Override
     public void update(InputStream is) throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -1336,7 +1339,7 @@ public class Felix extends BundleImpl implements Framework
 
     private void stopRefresh() throws BundleException
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -2050,7 +2053,7 @@ public class Felix extends BundleImpl implements Framework
             throw new IllegalStateException("The bundle is uninstalled.");
         }
 
-        if (System.getSecurityManager() != null)
+        if (SecuritySystem.getSecurityManager() != null)
         {
             try
             {
@@ -2469,7 +2472,7 @@ public class Felix extends BundleImpl implements Framework
                 {
                     throw (BundleException) th;
                 }
-                else if ((System.getSecurityManager() != null) &&
+                else if ((SecuritySystem.getSecurityManager() != null) &&
                     (th instanceof java.security.PrivilegedActionException))
                 {
                     th = ((java.security.PrivilegedActionException) th).getException();
@@ -2579,7 +2582,7 @@ public class Felix extends BundleImpl implements Framework
                     // Verify bundle revision.
                     try
                     {
-                        Object sm = System.getSecurityManager();
+                        Object sm = SecuritySystem.getSecurityManager();
 
                         if (sm != null)
                         {
@@ -2868,7 +2871,7 @@ public class Felix extends BundleImpl implements Framework
                 {
                     throw (BundleException) rethrow;
                 }
-                else if ((System.getSecurityManager() != null) &&
+                else if ((SecuritySystem.getSecurityManager() != null) &&
                     (rethrow instanceof java.security.PrivilegedActionException))
                 {
                     rethrow = ((java.security.PrivilegedActionException) rethrow).getException();
@@ -3294,7 +3297,7 @@ public class Felix extends BundleImpl implements Framework
 
                     if (!bundle.isExtension())
                     {
-                        Object sm = System.getSecurityManager();
+                        Object sm = SecuritySystem.getSecurityManager();
                         if (sm != null)
                         {
                             ((SecurityManager) sm).checkPermission(
@@ -3946,7 +3949,7 @@ public class Felix extends BundleImpl implements Framework
     {
         ServiceReference[] refs = getServiceReferences(bundle, className, expr, checkAssignable);
 
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if ((sm == null) || (refs == null))
         {

@@ -18,41 +18,6 @@
  */
 package org.apache.felix.framework;
 
-import org.apache.felix.framework.cache.ConnectContentContent;
-import org.apache.felix.framework.cache.Content;
-import org.apache.felix.framework.cache.DirectoryContent;
-import org.apache.felix.framework.cache.JarContent;
-import org.apache.felix.framework.ext.ClassPathExtenderFactory;
-import org.apache.felix.framework.util.ClassParser;
-import org.apache.felix.framework.util.FelixConstants;
-import org.apache.felix.framework.util.StringMap;
-import org.apache.felix.framework.util.Util;
-import org.apache.felix.framework.util.manifestparser.ManifestParser;
-import org.apache.felix.framework.util.manifestparser.NativeLibrary;
-import org.apache.felix.framework.util.manifestparser.NativeLibraryClause;
-import org.apache.felix.framework.wiring.BundleCapabilityImpl;
-import org.apache.felix.framework.wiring.BundleRequirementImpl;
-import org.apache.felix.framework.wiring.BundleWireImpl;
-import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement;
-import org.osgi.framework.AdminPermission;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
-import org.osgi.framework.BundleException;
-import org.osgi.framework.Constants;
-import org.osgi.framework.FrameworkEvent;
-import org.osgi.framework.Version;
-import org.osgi.framework.namespace.BundleNamespace;
-import org.osgi.framework.namespace.ExecutionEnvironmentNamespace;
-import org.osgi.framework.namespace.HostNamespace;
-import org.osgi.framework.namespace.IdentityNamespace;
-import org.osgi.framework.namespace.NativeNamespace;
-import org.osgi.framework.wiring.BundleCapability;
-import org.osgi.framework.wiring.BundleRequirement;
-import org.osgi.framework.wiring.BundleRevision;
-import org.osgi.framework.wiring.BundleWire;
-import org.osgi.framework.wiring.BundleWiring;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -84,6 +49,43 @@ import java.util.SortedSet;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.concurrent.CopyOnWriteArrayList;
+
+import org.apache.felix.framework.cache.ConnectContentContent;
+import org.apache.felix.framework.cache.Content;
+import org.apache.felix.framework.cache.DirectoryContent;
+import org.apache.felix.framework.cache.JarContent;
+import org.apache.felix.framework.ext.ClassPathExtenderFactory;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
+import org.apache.felix.framework.util.ClassParser;
+import org.apache.felix.framework.util.FelixConstants;
+import org.apache.felix.framework.util.StringMap;
+import org.apache.felix.framework.util.Util;
+import org.apache.felix.framework.util.manifestparser.ManifestParser;
+import org.apache.felix.framework.util.manifestparser.NativeLibrary;
+import org.apache.felix.framework.util.manifestparser.NativeLibraryClause;
+import org.apache.felix.framework.wiring.BundleCapabilityImpl;
+import org.apache.felix.framework.wiring.BundleRequirementImpl;
+import org.apache.felix.framework.wiring.BundleWireImpl;
+import org.codehaus.mojo.animal_sniffer.IgnoreJRERequirement;
+import org.osgi.framework.AdminPermission;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleActivator;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
+import org.osgi.framework.Constants;
+import org.osgi.framework.FrameworkEvent;
+import org.osgi.framework.Version;
+import org.osgi.framework.namespace.BundleNamespace;
+import org.osgi.framework.namespace.ExecutionEnvironmentNamespace;
+import org.osgi.framework.namespace.HostNamespace;
+import org.osgi.framework.namespace.IdentityNamespace;
+import org.osgi.framework.namespace.NativeNamespace;
+import org.osgi.framework.wiring.BundleCapability;
+import org.osgi.framework.wiring.BundleRequirement;
+import org.osgi.framework.wiring.BundleRevision;
+import org.osgi.framework.wiring.BundleWire;
+import org.osgi.framework.wiring.BundleWiring;
 
 /**
  * The ExtensionManager class is used as content loader of the systembundle. Added extension
@@ -410,7 +412,7 @@ class ExtensionManager implements Content
      */
     void addExtensionBundle(BundleImpl bundle) throws Exception
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if (sm != null)
         {
             ((SecurityManager) sm).checkPermission(

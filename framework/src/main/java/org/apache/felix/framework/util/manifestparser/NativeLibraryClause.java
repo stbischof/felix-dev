@@ -18,6 +18,8 @@
  */
 package org.apache.felix.framework.util.manifestparser;
 
+import static org.apache.felix.framework.VersionConverter.toOsgiVersion;
+
 import java.nio.ByteOrder;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,10 +31,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import org.apache.felix.framework.Logger;
+import org.apache.felix.framework.VersionConverter;
 import org.apache.felix.framework.util.FelixConstants;
 import org.osgi.framework.BundleException;
 import org.osgi.framework.Constants;
@@ -40,8 +41,6 @@ import org.osgi.framework.Filter;
 import org.osgi.framework.FrameworkUtil;
 import org.osgi.framework.Version;
 import org.osgi.framework.VersionRange;
-
-import static org.apache.felix.framework.VersionConverter.toOsgiVersion;
 
 public class NativeLibraryClause
 {

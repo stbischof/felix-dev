@@ -19,7 +19,9 @@
 package org.apache.felix.framework;
 
 import java.io.IOException;
-import java.net.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLStreamHandler;
 
 /**
  * This class implements a fake stream handler. This class is necessary in

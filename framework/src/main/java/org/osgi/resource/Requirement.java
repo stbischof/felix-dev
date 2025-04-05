@@ -17,6 +17,7 @@
 package org.osgi.resource;
 
 import java.util.Map;
+
 import org.osgi.annotation.versioning.ConsumerType;
 
 /**

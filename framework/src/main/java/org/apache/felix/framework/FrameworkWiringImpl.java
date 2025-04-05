@@ -22,9 +22,10 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
 import org.osgi.framework.AdminPermission;
 import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
 import org.osgi.framework.FrameworkListener;
 import org.osgi.framework.ServiceRegistration;
 import org.osgi.framework.wiring.BundleCapability;
@@ -88,7 +89,7 @@ class FrameworkWiringImpl implements FrameworkWiring, Runnable
 
     public void refreshBundles(Collection<Bundle> bundles, FrameworkListener... listeners)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {
@@ -114,7 +115,7 @@ class FrameworkWiringImpl implements FrameworkWiring, Runnable
 
     public boolean resolveBundles(Collection<Bundle> bundles)
     {
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
 
         if (sm != null)
         {

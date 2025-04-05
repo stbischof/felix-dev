@@ -33,7 +33,13 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.apache.felix.framework.util.*;
+import org.apache.felix.framework.sm.SecurityManager;
+import org.apache.felix.framework.sm.SecuritySystem;
+import org.apache.felix.framework.util.ListenerInfo;
+import org.apache.felix.framework.util.SecureAction;
+import org.apache.felix.framework.util.ShrinkableCollection;
+import org.apache.felix.framework.util.ShrinkableMap;
+import org.apache.felix.framework.util.Util;
 import org.osgi.framework.AllServiceListener;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
@@ -49,7 +55,6 @@ import org.osgi.framework.ServiceReference;
 import org.osgi.framework.SynchronousBundleListener;
 import org.osgi.framework.UnfilteredServiceListener;
 import org.osgi.framework.hooks.service.ListenerHook;
-import org.osgi.framework.launch.Framework;
 
 public class EventDispatcher
 {
@@ -221,7 +226,7 @@ public class EventDispatcher
             else if (clazz == ServiceListener.class)
             {
                 // Remember security context for filtering service events.
-                Object sm = System.getSecurityManager();
+                Object sm = SecuritySystem.getSecurityManager();
                 if (sm != null)
                 {
                     acc = ((SecurityManager) sm).getSecurityContext();
@@ -865,7 +870,7 @@ public class EventDispatcher
         if ((bundle.getState() == Bundle.STARTING) ||
             (bundle.getState() == Bundle.ACTIVE))
         {
-            if (System.getSecurityManager() != null)
+            if (SecuritySystem.getSecurityManager() != null)
             {
                 AccessController.doPrivileged(new PrivilegedAction() {
                     @Override
@@ -899,7 +904,7 @@ public class EventDispatcher
             ((bundle.getState() == Bundle.STARTING) ||
             (bundle.getState() == Bundle.ACTIVE)))
         {
-            if (System.getSecurityManager() != null)
+            if (SecuritySystem.getSecurityManager() != null)
             {
                 AccessController.doPrivileged(new PrivilegedAction() {
                     @Override
@@ -936,7 +941,7 @@ public class EventDispatcher
         ServiceReference ref = ((ServiceEvent) event).getServiceReference();
 
         boolean hasPermission = true;
-        Object sm = System.getSecurityManager();
+        Object sm = SecuritySystem.getSecurityManager();
         if ((acc != null) && (sm != null))
         {
             try
@@ -973,7 +978,7 @@ public class EventDispatcher
                 if ((l instanceof AllServiceListener) ||
                     Util.isServiceAssignable(bundle, ((ServiceEvent) event).getServiceReference()))
                 {
-                    if (System.getSecurityManager() != null)
+                    if (SecuritySystem.getSecurityManager() != null)
                     {
                         AccessController.doPrivileged(new PrivilegedAction()
                         {
@@ -1000,7 +1005,7 @@ public class EventDispatcher
                     final ServiceEvent se = new ServiceEvent(
                         ServiceEvent.MODIFIED_ENDMATCH,
                         ((ServiceEvent) event).getServiceReference());
-                    if (System.getSecurityManager() != null)
+                    if (SecuritySystem.getSecurityManager() != null)
                     {
                         AccessController.doPrivileged(new PrivilegedAction()
                         {
